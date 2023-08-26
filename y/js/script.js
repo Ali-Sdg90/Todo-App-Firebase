@@ -10,6 +10,7 @@ let filteredTodoSaves = [];
 let editTodo = -1;
 let firstTopFilter = 35.5;
 let filterList = "all"; // all - active - completed
+
 // localStorage.clear();
 
 // // If localSave is available, todoSaves will be set to localSave :
@@ -17,6 +18,29 @@ let filterList = "all"; // all - active - completed
 //     todoSaves = JSON.parse(localStorage.getItem("saveTodos"));
 //     updateHTML(false);
 // }
+
+// New Stuff :
+
+function updateTodos() {
+    const db = firebase.firestore();
+    const myPost = db.collection("Todos").doc("todos-data");
+    const newData = todoSaves;
+    myPost.update({ dataArray: JSON.parse(JSON.stringify(newData)) });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    const db = firebase.firestore();
+    const myPost = db.collection("Todos").doc("todos-data");
+
+    myPost.onSnapshot((doc) => {
+        const data = doc.data();
+
+        // console.log(data.dataArray);
+        console.log(data.dataArray);
+        todoSaves = data.dataArray;
+        updateHTML(false);
+    });
+});
 
 // Filter the todoSave in all - active - completed modes :
 function filterTodoSavesFunc() {
@@ -152,6 +176,10 @@ function completeBtn(taskNumber) {
         }
     }
     // localStorage.setItem("saveTodos", JSON.stringify(todoSaves));
+    console.log("4 =>", todoSaves);
+    updateTodos();
+    console.log(todoSaves);
+
     document.getElementById(`todo-number${taskNumber}`).style.opacity = 0;
     if (filterList != "all")
         setTimeout(() => {
@@ -189,12 +217,17 @@ addBtn.addEventListener("click", function () {
         addBtn.classList.remove("change-add-btn");
         editTodo = -1;
         // localStorage.setItem("saveTodos", JSON.stringify(todoSaves));
+        console.log("1 =>", todoSaves);
+        updateTodos();
         updateHTML(false);
         return;
     }
     todoSaves[todoSaves.length] = new addTodoSaves(todoInput.value, false);
     addBtn.blur();
     // localStorage.setItem("saveTodos", JSON.stringify(todoSaves));
+    const temp = todoSaves;
+    console.log("2 =>", JSON.parse(JSON.stringify(temp)));
+    updateTodos();
     updateHTML(true);
 });
 
@@ -228,6 +261,8 @@ function deleteFunc() {
     }
     todoSaves = todoSaves.filter((value) => Object.keys(value).length !== 0);
     // localStorage.setItem("saveTodos", JSON.stringify(todoSaves));
+    console.log("3 =>", todoSaves);
+    updateTodos();
 }
 
 // Add an addEventListener to the filter buttons and change the styles
