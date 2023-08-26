@@ -5,7 +5,6 @@ const pendingFilter = document.getElementById("pending-filter");
 const clearAll = document.getElementById("clear-btn");
 const todoInput = document.getElementById("todo-input");
 const todoList = document.getElementById("save-list");
-const localTodo = localStorage.getItem("saveTodos");
 let todoSaves = [];
 let filteredTodoSaves = [];
 let editTodo = -1;
@@ -13,11 +12,11 @@ let firstTopFilter = 35.5;
 let filterList = "all"; // all - active - completed
 // localStorage.clear();
 
-// If localSave is available, todoSaves will be set to localSave :
-if (localTodo) {
-    todoSaves = JSON.parse(localStorage.getItem("saveTodos"));
-    updateHTML(false);
-}
+// // If localSave is available, todoSaves will be set to localSave :
+// if (localTodo) {
+//     todoSaves = JSON.parse(localStorage.getItem("saveTodos"));
+//     updateHTML(false);
+// }
 
 // Filter the todoSave in all - active - completed modes :
 function filterTodoSavesFunc() {
@@ -152,7 +151,7 @@ function completeBtn(taskNumber) {
             }
         }
     }
-    localStorage.setItem("saveTodos", JSON.stringify(todoSaves));
+    // localStorage.setItem("saveTodos", JSON.stringify(todoSaves));
     document.getElementById(`todo-number${taskNumber}`).style.opacity = 0;
     if (filterList != "all")
         setTimeout(() => {
@@ -189,13 +188,13 @@ addBtn.addEventListener("click", function () {
         addBtn.textContent = "+";
         addBtn.classList.remove("change-add-btn");
         editTodo = -1;
-        localStorage.setItem("saveTodos", JSON.stringify(todoSaves));
+        // localStorage.setItem("saveTodos", JSON.stringify(todoSaves));
         updateHTML(false);
         return;
     }
     todoSaves[todoSaves.length] = new addTodoSaves(todoInput.value, false);
     addBtn.blur();
-    localStorage.setItem("saveTodos", JSON.stringify(todoSaves));
+    // localStorage.setItem("saveTodos", JSON.stringify(todoSaves));
     updateHTML(true);
 });
 
@@ -228,7 +227,7 @@ function deleteFunc() {
         }
     }
     todoSaves = todoSaves.filter((value) => Object.keys(value).length !== 0);
-    localStorage.setItem("saveTodos", JSON.stringify(todoSaves));
+    // localStorage.setItem("saveTodos", JSON.stringify(todoSaves));
 }
 
 // Add an addEventListener to the filter buttons and change the styles
