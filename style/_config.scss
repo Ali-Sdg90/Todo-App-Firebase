@@ -1,0 +1,35 @@
+// color variables
+$main-background: white;
+$dark-gray: rgb(221, 221, 221);
+$light-gray: rgb(237, 237, 237);
+$input-text-color-active: black;
+$complete-todo-text-color: gray;
+$input-text-color: rgb(103, 103, 103);
+$dark-purple: rgba(127, 48, 255, 0.886);
+$light-purple: rgba(141, 70, 255, 0.886);
+$thomb-color: rgba(166, 166, 166, 0.674);
+$thomb-color-hover: rgba(137, 137, 137, 0.674);
+$body-background: linear-gradient(to top, rgb(48, 72, 255), rgb(0, 238, 255));
+$edit-number-color: rgb(109, 109, 255);
+$edit-number-color-hover: rgb(139, 126, 255);
+$edit-number-color-active: rgb(109, 109, 255);
+$complete-number-color: rgb(109, 255, 177);
+$complete-number-color-hover: rgb(142, 253, 199);
+$complete-number-color-active: rgb(109, 255, 177);
+$delete-number-color: rgb(255, 109, 109);
+$delete-number-color-hover: rgb(255, 137, 137);
+$delete-number-color-active: rgb(255, 109, 109);
+
+// font variables
+$font-size-h1: 33px;
+$font-size-input: 17px;
+$font-size-add-btn: 40px;
+$font-size-medium: 16px;
+$font-size-save-list: 17px;
+$font-size-change-add-btn: 34px;
+$default-font-family: sans-serif;
+$font-size-filter-nav-text: 12px;
+
+// z-index variables
+$z-index-bottom: 1;
+$z-index-top: 2;

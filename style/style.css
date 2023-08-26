@@ -1,0 +1,311 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: default;
+}
+
+::-moz-selection {
+  background: transparent;
+}
+
+::selection {
+  background: transparent;
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+}
+::-webkit-scrollbar-track {
+  background: white;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(166, 166, 166, 0.674);
+  border-radius: 10px;
+  outline: 3px solid white;
+  outline-offset: -2.5px;
+  -webkit-transition: background 0.5s;
+  transition: background 0.5s;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(137, 137, 137, 0.674);
+}
+
+body {
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(to top, rgb(48, 72, 255), rgb(0, 238, 255));
+  transform: scale(1.2);
+  overflow: hidden;
+}
+
+#filter-nav {
+  position: relative;
+  transform: translate(-190px, -22px);
+  z-index: 3;
+}
+
+#filter-nav-background, #filter-nav-text {
+  position: absolute;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: 1fr;
+  width: 356px;
+}
+#filter-nav-background svg, #filter-nav-text svg {
+  width: 170%;
+  height: 32px;
+  opacity: 1;
+}
+#filter-nav-background div:first-child, #filter-nav-text div:first-child {
+  z-index: 1;
+}
+
+#filter-nav-text {
+  position: absolute;
+  top: 6px;
+  gap: 14px;
+  padding-left: 32.8px;
+}
+#filter-nav-text p {
+  z-index: 2;
+  width: 130%;
+  padding-bottom: 8px;
+  font-size: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+#filter-nav-text p:nth-child(4), #filter-nav-text p:nth-child(5) {
+  cursor: default;
+}
+
+h1 {
+  font-weight: 600;
+  margin: 10px 0;
+  font-size: 33px;
+}
+
+br {
+  display: block;
+  height: 5px;
+  content: "";
+}
+
+#container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+#main-div {
+  background: white;
+  width: 360px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.397);
+  padding: 19.5px;
+  padding-bottom: 15px;
+  position: relative;
+}
+
+#todo-input {
+  padding: 5px 12px;
+  margin: 10px 0 5px;
+  font-size: 17px;
+  color: rgb(103, 103, 103);
+  height: 39px;
+  width: 275px;
+  border: 2px solid rgb(114, 114, 114);
+  transition: background 0.1s;
+}
+#todo-input::-moz-selection {
+  background: rgba(127, 48, 255, 0.886);
+  color: white;
+}
+#todo-input::selection {
+  background: rgba(127, 48, 255, 0.886);
+  color: white;
+}
+#todo-input:focus {
+  color: black;
+  cursor: auto;
+}
+
+#add-btn {
+  width: 41px;
+  height: 38px;
+  display: inline-flex;
+  color: white;
+  background-color: rgba(127, 48, 255, 0.886);
+  justify-content: center;
+  align-items: center;
+  font-family: cursive;
+  font-size: 40px;
+  padding-bottom: 5px;
+  position: relative;
+  top: 8px;
+  cursor: pointer;
+  transition: background 0.1s;
+}
+#add-btn:hover {
+  background: rgba(141, 70, 255, 0.886);
+}
+#add-btn:active {
+  background: rgba(127, 48, 255, 0.886);
+}
+
+.change-add-btn {
+  font-size: 34px !important;
+  padding: 4px;
+}
+
+#save-list {
+  max-height: 300px;
+  overflow-y: scroll;
+  width: 330px;
+}
+#save-list span {
+  position: relative;
+  padding-left: 12.11px;
+  margin-top: 5px;
+  font-size: 17px;
+  height: 37.8px;
+  display: flex;
+  align-items: center;
+  background: rgb(237, 237, 237);
+  border-radius: 6px;
+  justify-content: space-between;
+  width: 315px;
+  transition: opacity 0.5s, background 0.1s, transform 0.4s;
+}
+#save-list span:last-child {
+  margin-bottom: 5px;
+}
+#save-list span:hover {
+  background: rgb(221, 221, 221);
+}
+#save-list span:hover div[id*=edit-number] {
+  opacity: 0.95;
+}
+#save-list span:hover div[id*=edit-number]:hover {
+  background: rgb(139, 126, 255);
+}
+#save-list span:hover div[id*=edit-number]:active {
+  background: rgb(109, 109, 255);
+}
+#save-list span:hover div[id*=complete-number] {
+  opacity: 0.95;
+}
+#save-list span:hover div[id*=complete-number]:hover {
+  background: rgb(142, 253, 199);
+}
+#save-list span:hover div[id*=complete-number]:active {
+  background: rgb(109, 255, 177);
+}
+#save-list span:hover div[id*=delete-number] {
+  opacity: 0.95;
+}
+#save-list span:hover div[id*=delete-number]:hover {
+  background: rgb(255, 137, 137);
+}
+#save-list span:hover div[id*=delete-number]:active {
+  background: rgb(255, 109, 109);
+}
+#save-list span div:first-child {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding-right: 5px;
+}
+
+div[id*=edit-number] {
+  opacity: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  height: 100%;
+  width: 41px;
+  font-family: cursive;
+  border-radius: 0;
+  cursor: pointer;
+  position: absolute;
+  transition: opacity 0.25s 0.05s, background 0.2s !important;
+  right: 81.3px;
+  background: rgb(109, 109, 255);
+}
+
+div[id*=complete-number] {
+  opacity: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  height: 100%;
+  width: 41px;
+  font-family: cursive;
+  border-radius: 0;
+  cursor: pointer;
+  position: absolute;
+  transition: opacity 0.25s 0.05s, background 0.2s !important;
+  right: 40.63px;
+  background: rgb(109, 255, 177);
+}
+
+div[id*=delete-number] {
+  opacity: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  height: 100%;
+  width: 41px;
+  font-family: cursive;
+  border-radius: 0;
+  cursor: pointer;
+  position: absolute;
+  transition: opacity 0.25s 0.05s, background 0.2s !important;
+  border-radius: 0 6px 6px 0;
+  right: 0;
+  background: rgb(255, 109, 109);
+}
+
+.svg {
+  width: 20px;
+  height: 24px;
+  cursor: pointer;
+}
+
+#last-line {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+}
+
+#clear-btn {
+  background: rgba(127, 48, 255, 0.886);
+  color: white;
+  padding: 7px 8px;
+  position: relative;
+  top: -8px;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background 0.1s;
+}
+#clear-btn:hover {
+  background: rgba(141, 70, 255, 0.886);
+}
+#clear-btn:active {
+  background: rgba(127, 48, 255, 0.886);
+}
+
+.complete-todo {
+  color: gray;
+  text-decoration: line-through;
+}/*# sourceMappingURL=style.css.map */

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="style/style.css" />
+        <title>Todo App With Firebase</title>
+    </head>
+    <body>
+        <div id="container">
+            <div id="filter-nav">
+                <div id="filter-nav-background">
+                    <div class="filter-div-background">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            xmlns:xlink="http://www.w3.org/1999/xlink"
+                            viewBox="0, 0, 400,125.4125412541254"
+                        >
+                            <g>
+                                <path
+                                    class="filter-background"
+                                    d="M187.705 20.083 C 187.188 20.600,158.258 21.194,123.416 21.403 C 49.360 21.846,53.156 21.024,40.835 39.281 C 37.680 43.956,19.802 84.053,19.802 86.455 C 19.802 86.826,101.188 87.129,200.660 87.129 C 300.132 87.129,381.518 86.826,381.518 86.455 C 381.518 84.053,363.641 43.956,360.485 39.281 C 352.366 27.250,347.026 23.524,334.637 21.244 C 325.751 19.608,189.256 18.530,187.705 20.083 "
+                                    stroke="none"
+                                    fill="white"
+                                    fill-rule="evenodd"
+                                ></path>
+                            </g>
+                        </svg>
+                    </div>
+                    <div class="filter-div-background">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            xmlns:xlink="http://www.w3.org/1999/xlink"
+                            viewBox="0, 0, 400,125.4125412541254"
+                        >
+                            <g>
+                                <path
+                                    class="filter-background"
+                                    d="M187.705 20.083 C 187.188 20.600,158.258 21.194,123.416 21.403 C 49.360 21.846,53.156 21.024,40.835 39.281 C 37.680 43.956,19.802 84.053,19.802 86.455 C 19.802 86.826,101.188 87.129,200.660 87.129 C 300.132 87.129,381.518 86.826,381.518 86.455 C 381.518 84.053,363.641 43.956,360.485 39.281 C 352.366 27.250,347.026 23.524,334.637 21.244 C 325.751 19.608,189.256 18.530,187.705 20.083 "
+                                    stroke="none"
+                                    fill="rgb(198, 198, 198)"
+                                    fill-rule="evenodd"
+                                ></path>
+                            </g>
+                        </svg>
+                    </div>
+                    <div class="filter-div-background">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            xmlns:xlink="http://www.w3.org/1999/xlink"
+                            viewBox="0, 0, 400,125.4125412541254"
+                        >
+                            <g>
+                                <path
+                                    class="filter-background"
+                                    d="M187.705 20.083 C 187.188 20.600,158.258 21.194,123.416 21.403 C 49.360 21.846,53.156 21.024,40.835 39.281 C 37.680 43.956,19.802 84.053,19.802 86.455 C 19.802 86.826,101.188 87.129,200.660 87.129 C 300.132 87.129,381.518 86.826,381.518 86.455 C 381.518 84.053,363.641 43.956,360.485 39.281 C 352.366 27.250,347.026 23.524,334.637 21.244 C 325.751 19.608,189.256 18.530,187.705 20.083 "
+                                    stroke="none"
+                                    fill="rgb(198, 198, 198)"
+                                    fill-rule="evenodd"
+                                ></path>
+                            </g>
+                        </svg>
+                    </div>
+                    <div></div>
+                    <div></div>
+                </div>
+                <div id="filter-nav-text">
+                    <p class="filter-text">All &nbsp</p>
+                    <p class="filter-text">Active</p>
+                    <p class="filter-text">&nbspCompleted</p>
+                    <p></p>
+                    <p></p>
+                </div>
+            </div>
+
+            <div id="main-div">
+                <h1>Todo App</h1>
+                <form id="input-form">
+                    <input
+                        type="text"
+                        name="text-input"
+                        id="todo-input"
+                        placeholder="Add your new todo"
+                        autocomplete="off"
+                        autofocus
+                        required
+                    />
+                    <span id="add-btn">+</span>
+                </form>
+                <div id="save-list"><br /></div>
+                <div id="last-line">
+                    <span>
+                        <span>You have</span>
+                        <span id="todo-counter"></span>
+                        <span id="pending-filter">pending</span>
+                        <span id="task-tasks">tasks</span>
+                    </span>
+                    <span id="clear-btn">Clear All</span>
+                </div>
+            </div>
+        </div>
+        <script src="js/script.js"></script>
+    </body>
+</html>

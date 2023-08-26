@@ -1,0 +1,47 @@
+#filter-nav {
+    position: relative;
+    transform: translate(-190px, -22px);
+    z-index: 3;
+}
+
+#filter-nav-background {
+    position: absolute;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: 1fr;
+    width: 356px;
+
+    & svg {
+        width: 170%;
+        height: 32px;
+        opacity: 1;
+    }
+
+    & div:first-child {
+        z-index: $z-index-bottom;
+    }
+}
+
+#filter-nav-text {
+    position: absolute;
+    top: 6px;
+    @extend #filter-nav-background;
+    gap: 14px;
+    padding-left: 32.8px;
+
+    & p {
+        z-index: $z-index-top;
+        width: 130%;
+        padding-bottom: 8px;
+        font-size: $font-size-filter-nav-text;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+
+        &:nth-child(4),
+        &:nth-child(5) {
+            cursor: default;
+        }
+    }
+}

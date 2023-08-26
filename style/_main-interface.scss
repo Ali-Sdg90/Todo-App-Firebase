@@ -1,0 +1,80 @@
+h1 {
+    font-weight: 600;
+    margin: 10px 0;
+    font-size: $font-size-h1;
+}
+
+br {
+    display: block;
+    height: 5px;
+    content: "";
+}
+
+#container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#main-div {
+    background: $main-background;
+    width: 360px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.397);
+    padding: 19.5px;
+    padding-bottom: 15px;
+    position: relative;
+}
+
+#todo-input {
+    padding: 5px 12px;
+    margin: 10px 0 5px;
+    font-size: $font-size-input;
+    color: $input-text-color;
+    height: 39px;
+    width: 275px;
+    border: 2px solid rgb(114, 114, 114);
+    transition: background 0.1s;
+
+    &::selection {
+        background: $dark-purple;
+        color: white;
+    }
+
+    &:focus {
+        color: $input-text-color-active;
+        cursor: auto;
+    }
+}
+
+#add-btn {
+    width: 41px;
+    height: 38px;
+    display: inline-flex;
+    color: white;
+    background-color: $dark-purple;
+    justify-content: center;
+    align-items: center;
+    font-family: cursive;
+    font-size: $font-size-add-btn;
+    padding-bottom: 5px;
+    position: relative;
+    top: 8px;
+    cursor: pointer;
+    transition: background 0.1s;
+
+    &:hover {
+        background: $light-purple;
+    }
+
+    &:active {
+        background: $dark-purple;
+    }
+}
+
+.change-add-btn {
+    font-size: $font-size-change-add-btn !important;
+    padding: 4px;
+}

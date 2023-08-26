@@ -1,0 +1,122 @@
+#save-list {
+    max-height: 300px;
+    overflow-y: scroll;
+    width: 330px;
+
+    & span {
+        position: relative;
+        padding-left: 12.11px;
+        margin-top: 5px;
+        font-size: $font-size-save-list;
+        height: 37.8px;
+        display: flex;
+        align-items: center;
+        background: $light-gray;
+        border-radius: 6px;
+        justify-content: space-between;
+        width: 315px;
+        transition: opacity 0.5s, background 0.1s, transform 0.4s;
+
+        &:last-child {
+            margin-bottom: 5px;
+        }
+
+        &:hover {
+            background: $dark-gray;
+
+            & div[id*="edit-number"] {
+                opacity: 0.95;
+
+                &:hover {
+                    background: $edit-number-color-hover;
+                }
+
+                &:active {
+                    background: $edit-number-color-active;
+                }
+            }
+            & div[id*="complete-number"] {
+                opacity: 0.95;
+
+                &:hover {
+                    background: $complete-number-color-hover;
+                }
+
+                &:active {
+                    background: $complete-number-color-active;
+                }
+            }
+            & div[id*="delete-number"] {
+                opacity: 0.95;
+
+                &:hover {
+                    background: $delete-number-color-hover;
+                }
+
+                &:active {
+                    background: $delete-number-color-active;
+                }
+            }
+        }
+
+        & div:first-child {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            padding-right: 5px;
+        }
+    }
+}
+
+div[id*="edit-number"] {
+    @include list-btns();
+    right: 81.3px;
+    background: $edit-number-color;
+}
+div[id*="complete-number"] {
+    @include list-btns();
+    right: 40.63px;
+    background: $complete-number-color;
+}
+div[id*="delete-number"] {
+    @include list-btns();
+    border-radius: 0 6px 6px 0;
+    right: 0;
+    background: $delete-number-color;
+}
+
+.svg {
+    width: 20px;
+    height: 24px;
+    cursor: pointer;
+}
+
+#last-line {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+
+#clear-btn {
+    background: $dark-purple;
+    color: white;
+    padding: 7px 8px;
+    position: relative;
+    top: -8px;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background 0.1s;
+
+    &:hover {
+        background: $light-purple;
+    }
+
+    &:active {
+        background: $dark-purple;
+    }
+}
+
+.complete-todo {
+    color: $complete-todo-text-color;
+    text-decoration: line-through;
+}

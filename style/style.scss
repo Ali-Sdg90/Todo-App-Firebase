@@ -1,0 +1,48 @@
+@import "config";
+@import "mixin";
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: $default-font-family;
+    border-radius: 5px;
+    font-size: $font-size-medium;
+    cursor: default;
+}
+
+::selection {
+    background: transparent;
+}
+
+::-webkit-scrollbar {
+    width: 12px;
+
+    &-track {
+        background: $main-background;
+    }
+
+    &-thumb {
+        background: $thomb-color;
+        border-radius: 10px;
+        outline: 3px solid $main-background;
+        outline-offset: -2.5px;
+        transition: background 0.5s;
+
+        &:hover {
+            background: $thomb-color-hover;
+        }
+    }
+}
+
+body {
+    width: 100%;
+    height: 100vh;
+    background: $body-background;
+    transform: scale(1.2);
+    overflow: hidden;
+}
+
+@import "filter-nav";
+@import "main-interface";
+@import "save-list";
