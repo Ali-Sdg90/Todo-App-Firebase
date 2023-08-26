@@ -5,6 +5,7 @@ const pendingFilter = document.getElementById("pending-filter");
 const clearAll = document.getElementById("clear-btn");
 const todoInput = document.getElementById("todo-input");
 const todoList = document.getElementById("save-list");
+const loadingPage = document.getElementById("loading-page");
 let todoSaves = [];
 let filteredTodoSaves = [];
 let editTodo = -1;
@@ -13,18 +14,13 @@ let filterList = "all"; // all - active - completed
 
 // localStorage.clear();
 
-// // If localSave is available, todoSaves will be set to localSave :
-// if (localTodo) {
-//     todoSaves = JSON.parse(localStorage.getItem("saveTodos"));
-//     updateHTML(false);
-// }
-
 // New Stuff :
 
 function updateTodos() {
     const db = firebase.firestore();
     const myPost = db.collection("Todos").doc("todos-data");
     const newData = todoSaves;
+
     myPost.update({ dataArray: JSON.parse(JSON.stringify(newData)) });
 }
 
@@ -32,13 +28,18 @@ document.addEventListener("DOMContentLoaded", () => {
     const db = firebase.firestore();
     const myPost = db.collection("Todos").doc("todos-data");
 
-    myPost.onSnapshot((doc) => {
+    myPost.get().then((doc) => {
         const data = doc.data();
 
         // console.log(data.dataArray);
         console.log(data.dataArray);
         todoSaves = data.dataArray;
         updateHTML(false);
+
+        loadingPage.style.opacity = "0";
+        setTimeout(() => {
+            loadingPage.style.display = "none";
+        }, 300);
     });
 });
 
@@ -66,6 +67,8 @@ function filterTodoSavesFunc() {
     }
 }
 
+console.log("update1");
+
 // Update the DOM
 // Create new tasks with buttons and addEventListeners to them
 // Set the position of navigation filters
@@ -83,13 +86,13 @@ function updateHTML(addNewTodo) {
                 ${filteredTodoSaves[i].todo}
             </div>
             <div id="edit-number${i}">
-                <img src="svg/edit.svg" alt="edit-btn" class="svg" />
+                <img src="../svg/edit.svg" alt="edit-btn" class="svg" />
             </div>
             <div id="complete-number${i}">
-                <img src="svg/complete.svg" alt="complete-btn" class="svg" />
+                <img src="../svg/complete.svg" alt="complete-btn" class="svg" />
             </div>
             <div id="delete-number${i}">
-                <img src="svg/delete.svg" alt="delete-btn" class="svg" />
+                <img src="../svg/delete.svg" alt="delete-btn" class="svg" />
             </div>
         </span>
         `;
@@ -176,7 +179,7 @@ function completeBtn(taskNumber) {
         }
     }
     // localStorage.setItem("saveTodos", JSON.stringify(todoSaves));
-    console.log("4 =>", todoSaves);
+
     updateTodos();
     console.log(todoSaves);
 
@@ -217,7 +220,7 @@ addBtn.addEventListener("click", function () {
         addBtn.classList.remove("change-add-btn");
         editTodo = -1;
         // localStorage.setItem("saveTodos", JSON.stringify(todoSaves));
-        console.log("1 =>", todoSaves);
+
         updateTodos();
         updateHTML(false);
         return;
@@ -226,7 +229,7 @@ addBtn.addEventListener("click", function () {
     addBtn.blur();
     // localStorage.setItem("saveTodos", JSON.stringify(todoSaves));
     const temp = todoSaves;
-    console.log("2 =>", JSON.parse(JSON.stringify(temp)));
+
     updateTodos();
     updateHTML(true);
 });
@@ -261,7 +264,7 @@ function deleteFunc() {
     }
     todoSaves = todoSaves.filter((value) => Object.keys(value).length !== 0);
     // localStorage.setItem("saveTodos", JSON.stringify(todoSaves));
-    console.log("3 =>", todoSaves);
+
     updateTodos();
 }
 
