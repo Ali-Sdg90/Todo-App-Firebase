@@ -306,3 +306,26 @@ function getDistanceFromTop(element) {
     }
     return distance;
 }
+
+const uploadText = document.getElementById("upload-text");
+const uploadBtn = document.getElementById("upload-btn");
+const downloadText = document.getElementById("download-text");
+const downloadBtn = document.getElementById("download-btn");
+
+uploadText.addEventListener("mouseover", () => {
+    uploadBtn.style.opacity = "0";
+});
+uploadText.addEventListener("mouseleave", () => {
+    uploadBtn.style.opacity = "1";
+});
+
+downloadText.addEventListener("mouseover", () => {
+    downloadBtn.style.opacity = "0";
+});
+downloadText.addEventListener("mouseleave", () => {
+    downloadBtn.style.opacity = "1";
+});
+
+uploadText.addEventListener("click", () => {
+    console.log("click");
+});
