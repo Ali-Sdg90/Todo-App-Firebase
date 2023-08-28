@@ -17,11 +17,10 @@ let filterList = "all"; // all - active - completed
 // New Stuff :
 
 function updateTodos() {
-    const db = firebase.firestore();
-    const myPost = db.collection("Todos").doc("todos-data");
-    const newData = todoSaves;
-
-    myPost.update({ dataArray: JSON.parse(JSON.stringify(newData)) });
+    // const db = firebase.firestore();
+    // const myPost = db.collection("Todos").doc("todos-data");
+    // const newData = todoSaves;
+    // myPost.update({ dataArray: JSON.parse(JSON.stringify(newData)) });
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -326,6 +325,44 @@ downloadText.addEventListener("mouseleave", () => {
     downloadBtn.style.opacity = "1";
 });
 
+const fileInput = document.getElementById("fileInput");
+
 uploadText.addEventListener("click", () => {
-    console.log("click");
+    fileInput.click();
+
+    console.log("upload");
+});
+
+fileInput.addEventListener("change", function () {
+    const selectedFile = fileInput.files[0];
+    if (selectedFile) {
+        console.log("Selected file:", selectedFile.name);
+
+        const reader = new FileReader();
+
+        reader.onload = function (event) {
+            const fileContent = JSON.parse(event.target.result);
+            console.log("File content:", fileContent);
+        };
+
+        reader.readAsText(selectedFile);
+    }
+});
+
+downloadText.addEventListener("click", () => {
+    console.log("download");
+
+    const content = JSON.stringify(todoSaves);
+    const blob = new Blob([content], { type: "text/plain" });
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "array.txt";
+    a.textContent = "Download Array";
+
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
 });
