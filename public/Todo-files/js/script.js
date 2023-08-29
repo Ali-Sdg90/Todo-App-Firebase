@@ -11,6 +11,7 @@ let filteredTodoSaves = [];
 let editTodo = -1;
 let firstTopFilter = 35.5;
 let filterList = "all"; // all - active - completed
+let firebaseOnline = false;
 
 // localStorage.clear();
 
@@ -30,6 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const myPost = db.collection("Todos").doc("todos-data");
 
     myPost.get().then((doc) => {
+        firebaseOnline = true;
         const data = doc.data();
 
         // console.log(data.dataArray);
@@ -85,13 +87,13 @@ function updateHTML(addNewTodo) {
                 ${filteredTodoSaves[i].todo}
             </div>
             <div id="edit-number${i}">
-                <img src="./Todo-files/svg/edit.svg" alt="edit-btn" class="svg" />
+                <img src="./Todo-files/imgs/edit.svg" alt="edit-btn" class="svg" />
             </div>
             <div id="complete-number${i}">
-                <img src="./Todo-files/svg/complete.svg" alt="complete-btn" class="svg" />
+                <img src="./Todo-files/imgs/complete.svg" alt="complete-btn" class="svg" />
             </div>
             <div id="delete-number${i}">
-                <img src="./Todo-files/svg/delete.svg" alt="delete-btn" class="svg" />
+                <img src="./Todo-files/imgs/delete.svg" alt="delete-btn" class="svg" />
             </div>
         </span>
         `;
@@ -328,28 +330,14 @@ const uploadBtn = document.getElementById("upload-btn");
 const downloadText = document.getElementById("download-text");
 const downloadBtn = document.getElementById("download-btn");
 
-uploadText.addEventListener("mouseover", () => {
-    uploadBtn.style.opacity = "0";
-});
-uploadText.addEventListener("mouseleave", () => {
-    uploadBtn.style.opacity = "1";
-});
-
-downloadText.addEventListener("mouseover", () => {
-    downloadBtn.style.opacity = "0";
-});
-downloadText.addEventListener("mouseleave", () => {
-    downloadBtn.style.opacity = "1";
-});
-
 const fileInput = document.getElementById("fileInput");
 
-uploadText.addEventListener("click", () => {
+const uploadHandler = () => {
     fileInput.value = null;
     fileInput.click();
 
     console.log("upload");
-});
+};
 
 fileInput.addEventListener("change", function () {
     const selectedFile = fileInput.files[0];
@@ -380,7 +368,7 @@ fileInput.addEventListener("change", function () {
 // content = content.replace(/}/g, "  }");
 // content = content.replace(/,/g, "\t\t");
 
-downloadText.addEventListener("click", () => {
+const downloadHandler = () => {
     console.log("download");
 
     let content = JSON.stringify(todoSaves, null, 2);
@@ -399,6 +387,37 @@ downloadText.addEventListener("click", () => {
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
-});
+};
 
-console.log("update5");
+setTimeout(() => {
+    if (!firebaseOnline) {
+        loadingPage.innerHTML = `
+        <h1>Cannot access Firebase servers</h1>
+        <br />
+        <p>Maybe turn on your VPN</p>`;
+
+        downloadText.removeEventListener("click", downloadHandler);
+        uploadText.removeEventListener("click", uploadHandler);
+    } else {
+        downloadText.addEventListener("click", downloadHandler);
+        uploadText.addEventListener("click", uploadHandler);
+
+        uploadText.addEventListener("mouseover", () => {
+            uploadBtn.style.opacity = "0";
+        });
+        uploadText.addEventListener("mouseleave", () => {
+            uploadBtn.style.opacity = "1";
+        });
+        uploadText.style.cursor = "pointer";
+
+        downloadText.addEventListener("mouseover", () => {
+            downloadBtn.style.opacity = "0";
+        });
+        downloadText.addEventListener("mouseleave", () => {
+            downloadBtn.style.opacity = "1";
+        });
+        downloadText.style.cursor = "pointer";
+    }
+}, 1500);
+
+console.log("update7");

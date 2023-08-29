@@ -41,6 +41,7 @@ body {
     background: $body-background;
     transform: scale(1.2);
     overflow: hidden;
+    // min-width: 455px;
 }
 
 @import "filter-nav";
