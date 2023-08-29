@@ -100,17 +100,17 @@ function updateHTML(addNewTodo) {
         document
             .getElementById(`edit-number${i}`)
             .addEventListener("click", function () {
-                editBtn(i);
+                editBtn(filteredTodoSaves[i].todoID);
             });
         document
             .getElementById(`complete-number${i}`)
             .addEventListener("click", function () {
-                completeBtn(i);
+                completeBtn(filteredTodoSaves[i].todoID);
             });
         document
             .getElementById(`delete-number${i}`)
             .addEventListener("click", function () {
-                deleteBtn(i);
+                deleteBtn(filteredTodoSaves[i].todoID);
             });
         if (filteredTodoSaves[i].isComplete) {
             document
@@ -153,12 +153,27 @@ function updateHTML(addNewTodo) {
     }
 }
 
+function findTodoNumber(taskNumber, array) {
+    console.log("=>", array);
+
+    for (let i = 0; i < array.length; i++) {
+        if (array[i].todoID === taskNumber) {
+            return i;
+        }
+    }
+    console.log("ERROR");
+}
+
 // Function of edit button on tasks
 // Change the style of the addBtn and set the value of todoInput to the task that is
 // going to change :
 function editBtn(taskNumber) {
-    todoInput.value = todoSaves[taskNumber].todo;
-    editTodo = taskNumber;
+    let editTodoNum = findTodoNumber(taskNumber, filteredTodoSaves);
+
+    console.log(editTodoNum);
+
+    todoInput.value = filteredTodoSaves[editTodoNum].todo;
+    editTodo = findTodoNumber(taskNumber, todoSaves);
     addBtn.textContent = "✓";
     addBtn.classList.add("change-add-btn");
     todoInput.focus();
@@ -168,21 +183,18 @@ function editBtn(taskNumber) {
 // Find the taskNumber in todoSaves and change its isComplete property to the opposite
 // value :
 function completeBtn(taskNumber) {
-    for (let i = 0; i < todoSaves.length; i++) {
-        if (todoSaves[i].todo == filteredTodoSaves[taskNumber].todo) {
-            if (todoSaves[i].isComplete) {
-                todoSaves[i].isComplete = false;
-            } else {
-                todoSaves[i].isComplete = true;
-            }
-        }
+    let doneTodo = findTodoNumber(taskNumber, filteredTodoSaves);
+
+    if (filteredTodoSaves[doneTodo].isComplete) {
+        filteredTodoSaves[doneTodo].isComplete = false;
+    } else {
+        filteredTodoSaves[doneTodo].isComplete = true;
     }
+
     // localStorage.setItem("saveTodos", JSON.stringify(todoSaves));
-
     updateTodos();
-    console.log(todoSaves);
 
-    document.getElementById(`todo-number${taskNumber}`).style.opacity = 0;
+    document.getElementById(`todo-number${doneTodo}`).style.opacity = 0;
     if (filterList != "all")
         setTimeout(() => {
             updateHTML(false);
@@ -193,11 +205,13 @@ function completeBtn(taskNumber) {
 // Function of delete button on tasks
 // Set filteredTodoSaves to the value of the task and run the deleteFunc() function :
 function deleteBtn(taskNumber) {
-    let deleteSave = filteredTodoSaves[taskNumber];
+    let deleteTodo = findTodoNumber(taskNumber, filteredTodoSaves);
+
+    let deleteSave = filteredTodoSaves[deleteTodo];
     filteredTodoSaves = [];
     filteredTodoSaves.push(deleteSave);
     deleteFunc();
-    document.getElementById(`todo-number${taskNumber}`).style.opacity = 0;
+    document.getElementById(`todo-number${deleteTodo}`).style.opacity = 0;
     setTimeout(() => {
         updateHTML(false);
     }, 250);
@@ -207,13 +221,16 @@ function deleteBtn(taskNumber) {
 function addTodoSaves(newTodo, newIsComplete) {
     this.todo = newTodo;
     this.isComplete = newIsComplete;
+    this.todoID = Math.trunc(Math.random() * 1000000);
 }
 
 // If todoInput.value avalable add it to todoSaves and localSave
 // addBtn can also be the button to register the editBtn() :
 addBtn.addEventListener("click", function () {
-    if (!todoInput.value) return;
-    if (editTodo != -1) {
+    if (!todoInput.value) {
+        return;
+    }
+    if (editTodo !== -1) {
         todoSaves[editTodo].todo = todoInput.value;
         addBtn.textContent = "+";
         addBtn.classList.remove("change-add-btn");
