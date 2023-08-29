@@ -170,10 +170,10 @@ function editBtn(taskNumber) {
 function completeBtn(taskNumber) {
     for (let i = 0; i < todoSaves.length; i++) {
         if (todoSaves[i].todo == filteredTodoSaves[taskNumber].todo) {
-            if (todoSaves[taskNumber].isComplete) {
-                todoSaves[taskNumber].isComplete = false;
+            if (todoSaves[i].isComplete) {
+                todoSaves[i].isComplete = false;
             } else {
-                todoSaves[taskNumber].isComplete = true;
+                todoSaves[i].isComplete = true;
             }
         }
     }
