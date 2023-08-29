@@ -15,9 +15,7 @@ let firebaseOnline = false;
 
 // localStorage.clear();
 
-// New Stuff :
-
-// Update to Firebase server
+// Update todos to Firebase server
 function updateTodos() {
     const db = firebase.firestore();
     const myPost = db.collection("Todos").doc("todos-data");
@@ -25,7 +23,7 @@ function updateTodos() {
     myPost.update({ dataArray: JSON.parse(JSON.stringify(newData)) });
 }
 
-// Get saved todos from Firebase server
+// Get todos from Firebase server
 document.addEventListener("DOMContentLoaded", () => {
     const db = firebase.firestore();
     const myPost = db.collection("Todos").doc("todos-data");
@@ -34,7 +32,6 @@ document.addEventListener("DOMContentLoaded", () => {
         firebaseOnline = true;
         const data = doc.data();
 
-        // console.log(data.dataArray);
         console.log(data.dataArray);
         todoSaves = data.dataArray;
         updateHTML(false);
@@ -132,7 +129,7 @@ function updateHTML(addNewTodo) {
         }, 10);
     }
     todoCounter.textContent = filteredTodoSaves.length;
-    if (filteredTodoSaves.length == 1) {
+    if (filteredTodoSaves.length === 1) {
         taskTasks.textContent = "task";
     } else {
         taskTasks.textContent = "tasks";
@@ -140,7 +137,7 @@ function updateHTML(addNewTodo) {
     switch (filterList) {
         case "all":
             pendingFilter.textContent = "";
-            if (filteredTodoSaves.length == 1) {
+            if (filteredTodoSaves.length === 1) {
                 taskTasks.textContent = "task in total";
             } else {
                 taskTasks.textContent = "tasks in total";
@@ -171,11 +168,10 @@ function findTodoNumber(taskNumber, array) {
 // going to change :
 function editBtn(taskNumber) {
     let editTodoNum = findTodoNumber(taskNumber, filteredTodoSaves);
-
-    console.log(editTodoNum);
-
     todoInput.value = filteredTodoSaves[editTodoNum].todo;
+
     editTodo = findTodoNumber(taskNumber, todoSaves);
+
     addBtn.textContent = "✓";
     addBtn.classList.add("change-add-btn");
     todoInput.focus();
@@ -213,6 +209,7 @@ function deleteBtn(taskNumber) {
     filteredTodoSaves = [];
     filteredTodoSaves.push(deleteSave);
     deleteFunc();
+
     document.getElementById(`todo-number${deleteTodo}`).style.opacity = 0;
     setTimeout(() => {
         updateHTML(false);
@@ -246,7 +243,6 @@ addBtn.addEventListener("click", function () {
     todoSaves[todoSaves.length] = new addTodoSaves(todoInput.value, false);
     addBtn.blur();
     // localStorage.setItem("saveTodos", JSON.stringify(todoSaves));
-    const temp = todoSaves;
 
     updateTodos();
     updateHTML(true);
@@ -293,6 +289,7 @@ const filtertext = document.getElementsByClassName("filter-text");
 const filterDivBackground = document.getElementsByClassName(
     "filter-div-background"
 );
+
 for (let i = 0; i < 3; i++) {
     filtertext[i].addEventListener("click", function () {
         for (let j = 0; j < 3; j++) {
@@ -301,6 +298,7 @@ for (let i = 0; i < 3; i++) {
         }
         filterBackground[i].style.fill = "white";
         filterDivBackground[i].style.zIndex = "2";
+
         switch (i) {
             case 0:
                 filterList = "all";
@@ -312,17 +310,9 @@ for (let i = 0; i < 3; i++) {
                 filterList = "completed";
                 break;
         }
+
         updateHTML(false);
     });
-}
-
-function getDistanceFromTop(element) {
-    let distance = 0;
-    while (element) {
-        distance += element.offsetTop;
-        element = element.offsetParent;
-    }
-    return distance;
 }
 
 const uploadText = document.getElementById("upload-text");
@@ -351,7 +341,8 @@ fileInput.addEventListener("change", function () {
             console.log("File content:", fileContent);
 
             todoSaves = fileContent;
-            console.log("ADDED");
+
+            console.log("Import successful");
             updateTodos();
             updateHTML(false);
         };
@@ -361,22 +352,26 @@ fileInput.addEventListener("change", function () {
     fileInput.value = null;
 });
 
-// content = content.replace(/},{/g, "}\n{");
-// content = content.replace("[{", "[\n{");
-// content = content.replace("}]", "}\n]");
-// content = content.replace(/{/g, "  {  ");
-// content = content.replace(/}/g, "  }");
-// content = content.replace(/,/g, "\t\t");
-
 const downloadHandler = () => {
     console.log("download");
 
     let content = JSON.stringify(todoSaves, null, 2);
 
+    // content = content.replace(/},{/g, "}\n{");
+    // content = content.replace("[{", "[\n{");
+    // content = content.replace("}]", "}\n]");
+    // content = content.replace(/{/g, "  {  ");
+    // content = content.replace(/}/g, "  }");
+    // content = content.replace(/,/g, "\t\t");
+
     const blob = new Blob([content], { type: "text/plain" });
     const url = URL.createObjectURL(blob);
 
     console.log(url);
+
+    console.log(
+        "If you cannot download todos, consider turning off your ad blocker"
+    );
 
     const a = document.createElement("a");
     a.href = url;
@@ -417,7 +412,9 @@ setTimeout(() => {
             downloadBtn.style.opacity = "1";
         });
         downloadText.style.cursor = "pointer";
-    }
-}, 1500);
 
-console.log("update7");
+        console.log("Download-Upload btns unlock");
+    }
+}, 2000);
+
+console.log("update8 - Aloha");
