@@ -16,13 +16,15 @@ let filterList = "all"; // all - active - completed
 
 // New Stuff :
 
+// Update to Firebase server
 function updateTodos() {
-    // const db = firebase.firestore();
-    // const myPost = db.collection("Todos").doc("todos-data");
-    // const newData = todoSaves;
-    // myPost.update({ dataArray: JSON.parse(JSON.stringify(newData)) });
+    const db = firebase.firestore();
+    const myPost = db.collection("Todos").doc("todos-data");
+    const newData = todoSaves;
+    myPost.update({ dataArray: JSON.parse(JSON.stringify(newData)) });
 }
 
+// Get saved todos from Firebase server
 document.addEventListener("DOMContentLoaded", () => {
     const db = firebase.firestore();
     const myPost = db.collection("Todos").doc("todos-data");
@@ -66,8 +68,6 @@ function filterTodoSavesFunc() {
     }
 }
 
-console.log("update1");
-
 // Update the DOM
 // Create new tasks with buttons and addEventListeners to them
 // Set the position of navigation filters
@@ -85,13 +85,13 @@ function updateHTML(addNewTodo) {
                 ${filteredTodoSaves[i].todo}
             </div>
             <div id="edit-number${i}">
-                <img src="../svg/edit.svg" alt="edit-btn" class="svg" />
+                <img src="./Todo-files/svg/edit.svg" alt="edit-btn" class="svg" />
             </div>
             <div id="complete-number${i}">
-                <img src="../svg/complete.svg" alt="complete-btn" class="svg" />
+                <img src="./Todo-files/svg/complete.svg" alt="complete-btn" class="svg" />
             </div>
             <div id="delete-number${i}">
-                <img src="../svg/delete.svg" alt="delete-btn" class="svg" />
+                <img src="./Todo-files/svg/delete.svg" alt="delete-btn" class="svg" />
             </div>
         </span>
         `;
@@ -170,10 +170,10 @@ function editBtn(taskNumber) {
 function completeBtn(taskNumber) {
     for (let i = 0; i < todoSaves.length; i++) {
         if (todoSaves[i].todo == filteredTodoSaves[taskNumber].todo) {
-            if (todoSaves[i].isComplete) {
-                todoSaves[i].isComplete = false;
+            if (todoSaves[taskNumber].isComplete) {
+                todoSaves[taskNumber].isComplete = false;
             } else {
-                todoSaves[i].isComplete = true;
+                todoSaves[taskNumber].isComplete = true;
             }
         }
     }
@@ -328,6 +328,7 @@ downloadText.addEventListener("mouseleave", () => {
 const fileInput = document.getElementById("fileInput");
 
 uploadText.addEventListener("click", () => {
+    fileInput.value = null;
     fileInput.click();
 
     console.log("upload");
@@ -341,24 +342,40 @@ fileInput.addEventListener("change", function () {
         const reader = new FileReader();
 
         reader.onload = function (event) {
-            const fileContent = JSON.parse(event.target.result);
+            let fileContent = JSON.parse(event.target.result);
             console.log("File content:", fileContent);
+
+            todoSaves = fileContent;
+            console.log("ADDED");
+            updateTodos();
+            updateHTML(false);
         };
 
         reader.readAsText(selectedFile);
     }
+    fileInput.value = null;
 });
+
+// content = content.replace(/},{/g, "}\n{");
+// content = content.replace("[{", "[\n{");
+// content = content.replace("}]", "}\n]");
+// content = content.replace(/{/g, "  {  ");
+// content = content.replace(/}/g, "  }");
+// content = content.replace(/,/g, "\t\t");
 
 downloadText.addEventListener("click", () => {
     console.log("download");
 
-    const content = JSON.stringify(todoSaves);
+    let content = JSON.stringify(todoSaves, null, 2);
+
     const blob = new Blob([content], { type: "text/plain" });
     const url = URL.createObjectURL(blob);
 
+    console.log(url);
+
     const a = document.createElement("a");
     a.href = url;
-    a.download = "array.txt";
+    a.download = "save-todos.txt";
     a.textContent = "Download Array";
 
     document.body.appendChild(a);
@@ -366,3 +383,5 @@ downloadText.addEventListener("click", () => {
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
 });
+
+console.log("update5");
