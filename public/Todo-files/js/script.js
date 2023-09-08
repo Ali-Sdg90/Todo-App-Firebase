@@ -415,6 +415,6 @@ setTimeout(() => {
 
         console.log("Download-Upload btns unlock");
     }
-}, 2000);
+}, 3000);
 
-console.log("update8 - Aloha");
+console.log("update9 - Aloha");
