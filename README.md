@@ -30,11 +30,7 @@
             Open a terminal in the repository's folder and run the following
             command:
         </p>
-        <pre>
-            <code>
-                firebase serve
-            </code>
-        </pre>
+        <pre><code>firebase serve</code></pre>
     </li>
     <li>
         <p>
