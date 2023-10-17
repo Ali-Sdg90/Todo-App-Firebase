@@ -12,28 +12,56 @@ let editTodo = -1;
 let firstTopFilter = 35.5;
 let filterList = "all"; // all - active - completed
 let firebaseOnline = false;
+let userInfo = {};
 
 // localStorage.clear();
+
+const encryptedEmailAdrs = window.location.href.split("/").reverse()[0];
+const decryptedEmailAdrs = urlDecoder(encryptedEmailAdrs);
+
+console.log("Encrypted_URL:", encryptedEmailAdrs);
+console.log("Decrypted_URL:", decryptedEmailAdrs);
 
 // Update todos to Firebase server
 function updateTodos() {
     const db = firebase.firestore();
-    const myPost = db.collection("Todos").doc("todos-data");
+    const myPost = db.collection("Accounts").doc(decryptedEmailAdrs);
     const newData = todoSaves;
-    myPost.update({ dataArray: JSON.parse(JSON.stringify(newData)) });
+    myPost.update({ UserTodo: JSON.parse(JSON.stringify(newData)) });
 }
 
 // Get todos from Firebase server
 document.addEventListener("DOMContentLoaded", () => {
     const db = firebase.firestore();
-    const myPost = db.collection("Todos").doc("todos-data");
+    const myPost = db.collection("Accounts").doc(decryptedEmailAdrs);
+
+    console.log("O=>", db.collection("Accounts").doc(decryptedEmailAdrs));
 
     myPost.get().then((doc) => {
         firebaseOnline = true;
         const data = doc.data();
 
-        console.log(data.dataArray);
-        todoSaves = data.dataArray;
+        userInfo = data.UserInfo;
+
+        console.log("All data:", data);
+        console.log("UserInfo:", userInfo);
+        console.log("UserTodo:", data.UserTodo);
+
+        if (userInfo.photoURL) {
+            document
+                .querySelector(".email-image")
+                .setAttribute("src", userInfo.photoURL);
+        } else {
+            document
+                .querySelector(".email-image")
+                .setAttribute("src", "./Todo-files/imgs/no-photo.png");
+        }
+
+        document.querySelector(".email-address").textContent = userInfo.email;
+        document.querySelector(".email-full-name").textContent =
+            userInfo.displayName;
+
+        todoSaves = data.UserTodo;
         updateHTML(false);
 
         loadingPage.style.opacity = "0";
@@ -417,4 +445,4 @@ setTimeout(() => {
     }
 }, 3000);
 
-console.log("update9 - Aloha");
+console.log("update10");

@@ -38,8 +38,79 @@ body {
   width: 100%;
   height: 100vh;
   background: linear-gradient(to top, rgb(48, 72, 255), rgb(0, 238, 255));
-  transform: scale(1.2);
   overflow: hidden;
+}
+
+.header-section {
+  width: 100%;
+  height: 60px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: white;
+  box-shadow: 0 0 5px 5px white;
+  z-index: 10;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  padding: 0 20px;
+  gap: 10px;
+}
+
+.todo-mode-section {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+  width: 280px;
+}
+
+.session-mode {
+  white-space: nowrap;
+  font-size: 20px;
+}
+
+.todo-hedear-text {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.change-session-btn,
+.email-logout {
+  white-space: nowrap;
+  padding: 5px 10px;
+  cursor: pointer;
+  border: 1px solid black;
+  background-color: rgba(0, 0, 0, 0.2);
+  transition: background-color 0.15s;
+}
+.change-session-btn:hover,
+.email-logout:hover {
+  background-color: rgba(0, 0, 0, 0.15);
+}
+.change-session-btn:active,
+.email-logout:active {
+  background-color: rgba(0, 0, 0, 0.25);
+}
+
+.email-section {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+}
+
+.email-image {
+  width: 50px;
+  height: 50px;
+  border: 1px solid rgb(0, 0, 0);
+  border-radius: 50%;
+}
+
+.email-full-name {
+  text-align: right;
 }
 
 #filter-nav {
@@ -96,13 +167,14 @@ br {
   content: "";
 }
 
-#container {
+#main-container {
   width: 100vw;
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  transform: scale(1.2);
 }
 
 #main-div {

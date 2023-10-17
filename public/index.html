@@ -53,10 +53,27 @@
       to avoid connecting the SDK to running emulators.
     -->
         <script defer src="/__/firebase/init.js?useEmulator=true"></script>
-        
     </head>
     <body>
-        <div id="container">
+        <div class="header-section">
+            <div class="todo-mode-section">
+                <h2 class="session-mode">Private session</h2>
+                <button class="change-session-btn">Public session</button>
+            </div>
+
+            <h1 class="todo-hedear-text">Todo App + Firebase</h1>
+
+            <div class="email-section">
+                <button class="email-logout">Logout</button>
+                <div>
+                    <div class="email-full-name"></div>
+                    <div class="email-address">Loading...</div>
+                </div>
+                <img class="email-image" src="" alt="prof-img" />
+            </div>
+        </div>
+
+        <div id="main-container">
             <div id="filter-nav">
                 <div id="filter-nav-background">
                     <div class="filter-div-background">
@@ -164,6 +181,7 @@
             </div>
         </div>
 
+        <script src="./Todo-files/js/urlDecoder.js"></script>
         <script src="./Todo-files/js/script.js"></script>
     </body>
 </html>

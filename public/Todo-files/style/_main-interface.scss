@@ -10,13 +10,14 @@ br {
     content: "";
 }
 
-#container {
+#main-container {
     width: 100vw;
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    transform: scale(1.2);
 }
 
 #main-div {
