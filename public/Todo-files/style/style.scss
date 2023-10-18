@@ -40,7 +40,8 @@ body {
     height: 100vh;
     background: $body-background;
     overflow: hidden;
-    // min-width: 455px;
+    // overflow-y: hidden;
+    // min-width: 1000px;
 }
 
 @import "header";

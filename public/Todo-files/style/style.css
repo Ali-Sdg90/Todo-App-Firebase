@@ -48,7 +48,7 @@ body {
   top: 0;
   right: 0;
   background: white;
-  box-shadow: 0 0 5px 5px white;
+  box-shadow: 0 0 8px 5px white;
   z-index: 10;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -74,6 +74,9 @@ body {
   flex-flow: row nowrap;
   justify-content: center;
   align-items: center;
+  text-shadow: 2px 0 rgba(98, 0, 255, 0.3), -2px 0 rgba(255, 0, 0, 0.3), 0 0 20px rgba(0, 0, 0, 0.4);
+  padding-top: 3px;
+  white-space: nowrap;
 }
 
 .change-session-btn,
@@ -174,7 +177,8 @@ br {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  transform: scale(1.2);
+  margin: auto;
+  transform: scale(1.2) translate(0, 35px);
 }
 
 #main-div {
@@ -307,7 +311,7 @@ br {
 }
 
 #save-list {
-  max-height: 300px;
+  max-height: 260px;
   overflow-y: scroll;
   width: 330px;
 }

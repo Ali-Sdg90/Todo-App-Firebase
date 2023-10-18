@@ -6,12 +6,8 @@
     top: 0;
     right: 0;
     background: white;
-    box-shadow: 0 0 5px 5px white;
+    box-shadow: 0 0 8px 5px white;
     z-index: 10;
-    // display: flex;
-    // flex-flow: row nowrap;
-    // justify-content: space-between;
-    // align-items: center;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     padding: 0 20px;
@@ -31,11 +27,14 @@
     font-size: 20px;
 }
 
-.todo-hedear-text{
+.todo-hedear-text {
     display: flex;
     flex-flow: row nowrap;
     justify-content: center;
     align-items: center;
+    text-shadow: 2px 0 rgba(98, 0, 255, 0.3), -2px 0 rgba(255, 0, 0, 0.3), 0 0 20px rgba(0, 0, 0, 0.4);
+    padding-top: 3px;
+    white-space: nowrap;
 }
 
 .change-session-btn,
@@ -71,7 +70,7 @@
     border-radius: 50%;
 }
 
-.email-full-name{
+.email-full-name {
     text-align: right;
 }
 

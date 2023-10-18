@@ -17,7 +17,8 @@ br {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    transform: scale(1.2);
+    margin: auto;
+    transform: scale(1.2) translate(0, 35px);
 }
 
 #main-div {
