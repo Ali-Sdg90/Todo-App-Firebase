@@ -43,30 +43,36 @@ body {
 
 .header-section {
   width: 100%;
-  height: 60px;
+  height: 70px;
   position: absolute;
   top: 0;
   right: 0;
   background: white;
-  box-shadow: 0 0 8px 5px white;
+  box-shadow: 0 0 8px 5px rgba(0, 0, 0, 0.111);
   z-index: 10;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
   padding: 0 20px;
   gap: 10px;
-}
-
-.todo-mode-section {
+  border-radius: 0;
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
   align-items: center;
-  width: 280px;
 }
 
-.session-mode {
-  white-space: nowrap;
-  font-size: 20px;
+.left-section {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.right-section {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
 }
 
 .todo-hedear-text {
@@ -74,12 +80,10 @@ body {
   flex-flow: row nowrap;
   justify-content: center;
   align-items: center;
-  text-shadow: 2px 0 rgba(98, 0, 255, 0.3), -2px 0 rgba(255, 0, 0, 0.3), 0 0 20px rgba(0, 0, 0, 0.4);
-  padding-top: 3px;
+  text-shadow: 1.5px 0 rgba(98, 0, 255, 0.3), -1.5px 0 rgba(255, 0, 0, 0.3), 0 0 20px rgba(0, 0, 0, 0.3);
   white-space: nowrap;
 }
 
-.change-session-btn,
 .email-logout {
   white-space: nowrap;
   padding: 5px 10px;
@@ -88,21 +92,11 @@ body {
   background-color: rgba(0, 0, 0, 0.2);
   transition: background-color 0.15s;
 }
-.change-session-btn:hover,
 .email-logout:hover {
   background-color: rgba(0, 0, 0, 0.15);
 }
-.change-session-btn:active,
 .email-logout:active {
   background-color: rgba(0, 0, 0, 0.25);
-}
-
-.email-section {
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: flex-end;
-  align-items: center;
-  gap: 10px;
 }
 
 .email-image {
@@ -114,6 +108,69 @@ body {
 
 .email-full-name {
   text-align: right;
+}
+
+.dropbtn,
+.gh-link {
+  background-color: white;
+  color: rgb(0, 0, 0);
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  border-radius: 2px;
+  text-decoration: none;
+}
+
+.dropbtn {
+  background: url("../imgs/arrow-down.png") no-repeat, white;
+  background-position: right 10px center;
+  background-size: 10px;
+  padding-right: 30px;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 169px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.dropdown-content a:hover,
+.gh-link:hover {
+  background-color: #f1f1f1;
+}
+
+.dropdown-content a:active,
+.gh-link:active {
+  background-color: #dcdcdc;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown:hover .dropbtn {
+  background-color: #f1f1f1;
 }
 
 #filter-nav {
@@ -162,6 +219,14 @@ h1 {
   font-weight: 600;
   margin: 10px 0;
   font-size: 33px;
+}
+
+.session-name {
+  font-size: 12px;
+  font-weight: 100;
+  position: relative;
+  left: -5px;
+  top: 2px;
 }
 
 br {

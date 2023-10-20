@@ -35,8 +35,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const db = firebase.firestore();
     const myPost = db.collection("Accounts").doc(decryptedEmailAdrs);
 
-    console.log("O=>", db.collection("Accounts").doc(decryptedEmailAdrs));
-
     myPost.get().then((doc) => {
         firebaseOnline = true;
         const data = doc.data();

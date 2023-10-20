@@ -56,20 +56,46 @@
     </head>
     <body>
         <div class="header-section">
-            <div class="todo-mode-section">
+            <!-- <div class="todo-mode-section">
                 <h2 class="session-mode">Private session</h2>
                 <button class="change-session-btn">Public session</button>
+            </div> -->
+
+            <div class="left-section">
+                <h1 class="todo-hedear-text">Todo App + Firebase</h1>
+
+                <div class="header-links">
+                    <div class="dropdown">
+                        <button class="dropbtn">Select session</button>
+                        <div class="dropdown-content">
+                            <a href="#">Private session</a>
+                            <a href="#">Public session</a>
+                            <a href="#">Anonymous session</a>
+                        </div>
+                    </div>
+                    <div class="dropdown">
+                        <button class="dropbtn">My other projects</button>
+                        <div class="dropdown-content">
+                            <a href="#" target="_blank">Link 1</a>
+                            <a href="#" target="_blank">Link 2</a>
+                            <a href="#" target="_blank">Link 3</a>
+                        </div>
+                    </div>
+                    <a class="gh-link" href="https://github.com/Ali-Sdg90" target="_blank"
+                        >My GitHub Page</a
+                    >
+                </div>
             </div>
 
-            <h1 class="todo-hedear-text">- Todo App + Firebase -</h1>
-
-            <div class="email-section">
-                <button class="email-logout">Logout</button>
+            <div class="right-section">
+                <a href="http://localhost:3000/React-login-page/todoApp">
+                    <button class="email-logout">Logout</button></a
+                >
                 <div>
                     <div class="email-full-name"></div>
                     <div class="email-address">Loading...</div>
                 </div>
-                <img class="email-image" src="" alt="prof-img" />
+                <img class="email-image" src="./Todo-files/imgs/no-photo.png" alt="prof-img" />
             </div>
         </div>
 
@@ -155,7 +181,9 @@
                         <span id="download-text"></span>
                     </div>
                 </div>
-                <h1>Todo App</h1>
+                <h1>
+                    Todo App <span class="session-name">(private session)</span>
+                </h1>
                 <form id="input-form">
                     <input
                         type="text"
