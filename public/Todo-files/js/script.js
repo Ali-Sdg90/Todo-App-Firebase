@@ -54,12 +54,28 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!userInfo.isAnonymous) {
             document.querySelector(".email-address").textContent =
                 userInfo.email;
+            document.querySelector(".email-logout").textContent = "Logout";
         } else {
+            document.querySelector(".email-logout").textContent = "Login";
             document.querySelector(".email-address").textContent = "";
         }
 
         document.querySelector(".email-full-name").textContent =
             userInfo.displayName;
+
+        switch (userInfo.displayName) {
+            case "Public Session":
+                document.getElementById("public-session-input").checked =
+                    "true";
+                break;
+            case "Anonymous User":
+                document.getElementById("anonymous-session-input").checked =
+                    "true";
+                break;
+            default:
+                document.getElementById("private-session-input").checked =
+                    "true";
+        }
 
         todoSaves = data.UserTodo;
         updateHTML(false);
@@ -447,7 +463,16 @@ setTimeout(() => {
 
 document.querySelector(".anonymous-session").addEventListener("click", () => {
     window.location.href =
-        "http://localhost:3000/React-login-page/todoApp/goAnonymousMode"
+        "http://localhost:3000/React-login-page/todoApp/goAnonymousMode";
 });
 
 console.log("update10");
+
+document.querySelector(".public-session").addEventListener("click", () => {
+    window.location.href =
+        "http://localhost:5000/17a%25C2%2586s%257Dzt1dv%25C2%2584%25C2%2584z%25C2%2580%257F";
+});
+
+document.querySelector(".private-session").addEventListener("click", () => {
+    window.location.href = "http://localhost:3000/React-login-page/todoApp";
+});
