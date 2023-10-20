@@ -1,11 +1,10 @@
 const urlDecoder = (encryptedUrl) => {
-    const now = new Date();
-    const hourNumber = now.getHours();
+    const hourNumber = encryptedUrl.slice(0, 2);
 
     let decryptedEmail = "";
 
     for (
-        let i = 0;
+        let i = 2;
         i < decodeURIComponent(decodeURIComponent(encryptedUrl)).length;
         i++
     ) {

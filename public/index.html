@@ -68,9 +68,31 @@
                     <div class="dropdown">
                         <button class="dropbtn">Select session</button>
                         <div class="dropdown-content">
-                            <a href="#">Private session</a>
-                            <a href="#">Public session</a>
-                            <a href="#">Anonymous session</a>
+                            <div class="private-session">
+                                <input
+                                    type="radio"
+                                    name="session-mode"
+                                    id="private-session-input"
+                                    class="session-mode-inputs"
+                                    checked
+                                />Private session
+                            </div>
+                            <div class="public-session">
+                                <input
+                                    type="radio"
+                                    name="session-mode"
+                                    id="public-session-input"
+                                    class="session-mode-inputs"
+                                />Public session
+                            </div>
+                            <div class="anonymous-session">
+                                <input
+                                    type="radio"
+                                    name="session-mode"
+                                    id="anonymous-session-input"
+                                    class="session-mode-inputs"
+                                />Anonymous session
+                            </div>
                         </div>
                     </div>
                     <div class="dropdown">
@@ -81,7 +103,10 @@
                             <a href="#" target="_blank">Link 3</a>
                         </div>
                     </div>
-                    <a class="gh-link" href="https://github.com/Ali-Sdg90" target="_blank"
+                    <a
+                        class="gh-link"
+                        href="https://github.com/Ali-Sdg90"
+                        target="_blank"
                         >My GitHub Page</a
                     >
                 </div>
@@ -95,7 +120,11 @@
                     <div class="email-full-name"></div>
                     <div class="email-address">Loading...</div>
                 </div>
-                <img class="email-image" src="./Todo-files/imgs/no-photo.png" alt="prof-img" />
+                <img
+                    class="email-image"
+                    src="./Todo-files/imgs/no-photo.png"
+                    alt="prof-img"
+                />
             </div>
         </div>
 
@@ -181,9 +210,7 @@
                         <span id="download-text"></span>
                     </div>
                 </div>
-                <h1>
-                    Todo App <span class="session-name">(private session)</span>
-                </h1>
+                <h1>Todo App</h1>
                 <form id="input-form">
                     <input
                         type="text"
@@ -209,6 +236,7 @@
             </div>
         </div>
 
+        <script src="./Todo-files/js/urlEncoder.js"></script>
         <script src="./Todo-files/js/urlDecoder.js"></script>
         <script src="./Todo-files/js/script.js"></script>
     </body>

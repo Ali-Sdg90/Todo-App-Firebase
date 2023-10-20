@@ -49,13 +49,15 @@ document.addEventListener("DOMContentLoaded", () => {
             document
                 .querySelector(".email-image")
                 .setAttribute("src", userInfo.photoURL);
-        } else {
-            document
-                .querySelector(".email-image")
-                .setAttribute("src", "./Todo-files/imgs/no-photo.png");
         }
 
-        document.querySelector(".email-address").textContent = userInfo.email;
+        if (!userInfo.isAnonymous) {
+            document.querySelector(".email-address").textContent =
+                userInfo.email;
+        } else {
+            document.querySelector(".email-address").textContent = "";
+        }
+
         document.querySelector(".email-full-name").textContent =
             userInfo.displayName;
 
@@ -442,5 +444,10 @@ setTimeout(() => {
         console.log("Download-Upload btns unlock");
     }
 }, 3000);
+
+document.querySelector(".anonymous-session").addEventListener("click", () => {
+    window.location.href =
+        "http://localhost:3000/React-login-page/todoApp/goAnonymousMode"
+});
 
 console.log("update10");

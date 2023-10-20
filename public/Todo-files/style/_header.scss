@@ -22,7 +22,7 @@
     flex-flow: row nowrap;
     justify-content: center;
     align-items: center;
-    gap: 20px;
+    gap: 10px;
 }
 
 .right-section {
@@ -45,7 +45,6 @@
 
 .email-logout {
     white-space: nowrap;
-
     padding: 5px 10px;
     cursor: pointer;
     border: 1px solid black;
@@ -69,6 +68,14 @@
 
 .email-full-name {
     text-align: right;
+    white-space: nowrap;
+}
+
+.header-links {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
 }
 
 // Dropdown from W3
@@ -83,6 +90,7 @@
     cursor: pointer;
     border-radius: 2px;
     text-decoration: none;
+    white-space: nowrap;
 }
 
 .dropbtn {
@@ -96,6 +104,7 @@
 .dropdown {
     position: relative;
     display: inline-block;
+    white-space: nowrap;
 }
 
 /* Dropdown Content (Hidden by Default) */
@@ -109,6 +118,7 @@
 }
 
 /* Links inside the dropdown */
+.dropdown-content div,
 .dropdown-content a {
     color: black;
     padding: 12px 16px;
@@ -118,11 +128,13 @@
     white-space: nowrap;
 }
 
+.dropdown-content div:hover,
 .dropdown-content a:hover,
 .gh-link:hover {
     background-color: #f1f1f1;
 }
 
+.dropdown-content div:active,
 .dropdown-content a:active,
 .gh-link:active {
     background-color: #dcdcdc;
@@ -134,4 +146,9 @@
 
 .dropdown:hover .dropbtn {
     background-color: #f1f1f1;
+}
+
+.session-mode-inputs {
+    margin-right: 5px;
+    cursor: pointer;
 }
