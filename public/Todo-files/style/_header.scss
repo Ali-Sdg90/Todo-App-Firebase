@@ -98,6 +98,7 @@
     background-position: right 10px center;
     background-size: 10px;
     padding-right: 30px;
+    transition: background-color 0.15s;
 }
 
 /* The container <div> - needed to position the dropdown content */
@@ -115,6 +116,7 @@
     min-width: 169px;
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     z-index: 1;
+    animation: showDropDowns 0.25s ease-out;
 }
 
 /* Links inside the dropdown */
@@ -126,6 +128,7 @@
     display: block;
     cursor: pointer;
     white-space: nowrap;
+    transition: background-color 0.15s;
 }
 
 .dropdown-content div:hover,
@@ -151,4 +154,15 @@
 .session-mode-inputs {
     margin-right: 5px;
     cursor: pointer;
+}
+
+@keyframes showDropDowns {
+    0% {
+        opacity: 0.3;
+        transform: translateY(-5px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }

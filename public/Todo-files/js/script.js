@@ -16,77 +16,6 @@ let userInfo = {};
 
 // localStorage.clear();
 
-const encryptedEmailAdrs = window.location.href.split("/").reverse()[0];
-const decryptedEmailAdrs = urlDecoder(encryptedEmailAdrs);
-
-console.log("Encrypted_URL:", encryptedEmailAdrs);
-console.log("Decrypted_URL:", decryptedEmailAdrs);
-
-// Update todos to Firebase server
-function updateTodos() {
-    const db = firebase.firestore();
-    const myPost = db.collection("Accounts").doc(decryptedEmailAdrs);
-    const newData = todoSaves;
-    myPost.update({ UserTodo: JSON.parse(JSON.stringify(newData)) });
-}
-
-// Get todos from Firebase server
-document.addEventListener("DOMContentLoaded", () => {
-    const db = firebase.firestore();
-    const myPost = db.collection("Accounts").doc(decryptedEmailAdrs);
-
-    myPost.get().then((doc) => {
-        firebaseOnline = true;
-        const data = doc.data();
-
-        userInfo = data.UserInfo;
-
-        console.log("All data:", data);
-        console.log("UserInfo:", userInfo);
-        console.log("UserTodo:", data.UserTodo);
-
-        if (userInfo.photoURL) {
-            document
-                .querySelector(".email-image")
-                .setAttribute("src", userInfo.photoURL);
-        }
-
-        if (!userInfo.isAnonymous) {
-            document.querySelector(".email-address").textContent =
-                userInfo.email;
-            document.querySelector(".email-logout").textContent = "Logout";
-        } else {
-            document.querySelector(".email-logout").textContent = "Login";
-            document.querySelector(".email-address").textContent = "";
-        }
-
-        document.querySelector(".email-full-name").textContent =
-            userInfo.displayName;
-
-        switch (userInfo.displayName) {
-            case "Public Session":
-                document.getElementById("public-session-input").checked =
-                    "true";
-                break;
-            case "Anonymous User":
-                document.getElementById("anonymous-session-input").checked =
-                    "true";
-                break;
-            default:
-                document.getElementById("private-session-input").checked =
-                    "true";
-        }
-
-        todoSaves = data.UserTodo;
-        updateHTML(false);
-
-        loadingPage.style.opacity = "0";
-        setTimeout(() => {
-            loadingPage.style.display = "none";
-        }, 300);
-    });
-});
-
 // Filter the todoSave in all - active - completed modes :
 function filterTodoSavesFunc() {
     filteredTodoSaves = [];
@@ -118,8 +47,13 @@ function filterTodoSavesFunc() {
 function updateHTML(addNewTodo) {
     todoInput.value = "";
     filterTodoSavesFunc();
-    if (!filteredTodoSaves.length) todoList.innerHTML = "<br />";
-    else todoList.innerHTML = "";
+
+    if (!filteredTodoSaves.length) {
+        todoList.innerHTML = "<br />";
+    } else {
+        todoList.innerHTML = "";
+    }
+
     for (let i = filteredTodoSaves.length; i > 0; ) {
         i--;
         todoList.innerHTML += `
@@ -139,6 +73,7 @@ function updateHTML(addNewTodo) {
         </span>
         `;
     }
+
     for (let i = 0; i < filteredTodoSaves.length; i++) {
         document
             .getElementById(`edit-number${i}`)
@@ -161,6 +96,7 @@ function updateHTML(addNewTodo) {
                 .classList.toggle("complete-todo");
         }
     }
+
     if (addNewTodo) {
         const newTodo = document.getElementById(
             `todo-number${filteredTodoSaves.length - 1}`
@@ -172,12 +108,14 @@ function updateHTML(addNewTodo) {
             newTodo.style.transform = "translate(0, 0)";
         }, 10);
     }
+
     todoCounter.textContent = filteredTodoSaves.length;
     if (filteredTodoSaves.length === 1) {
         taskTasks.textContent = "task";
     } else {
         taskTasks.textContent = "tasks";
     }
+
     switch (filterList) {
         case "all":
             pendingFilter.textContent = "";
@@ -205,59 +143,6 @@ function findTodoNumber(taskNumber, array) {
         }
     }
     console.log("ERROR");
-}
-
-// Function of edit button on tasks
-// Change the style of the addBtn and set the value of todoInput to the task that is
-// going to change :
-function editBtn(taskNumber) {
-    let editTodoNum = findTodoNumber(taskNumber, filteredTodoSaves);
-    todoInput.value = filteredTodoSaves[editTodoNum].todo;
-
-    editTodo = findTodoNumber(taskNumber, todoSaves);
-
-    addBtn.textContent = "✓";
-    addBtn.classList.add("change-add-btn");
-    todoInput.focus();
-}
-
-// Function of complete button on tasks
-// Find the taskNumber in todoSaves and change its isComplete property to the opposite
-// value :
-function completeBtn(taskNumber) {
-    let doneTodo = findTodoNumber(taskNumber, filteredTodoSaves);
-
-    if (filteredTodoSaves[doneTodo].isComplete) {
-        filteredTodoSaves[doneTodo].isComplete = false;
-    } else {
-        filteredTodoSaves[doneTodo].isComplete = true;
-    }
-
-    // localStorage.setItem("saveTodos", JSON.stringify(todoSaves));
-    updateTodos();
-
-    document.getElementById(`todo-number${doneTodo}`).style.opacity = 0;
-    if (filterList != "all")
-        setTimeout(() => {
-            updateHTML(false);
-        }, 250);
-    else updateHTML(false);
-}
-
-// Function of delete button on tasks
-// Set filteredTodoSaves to the value of the task and run the deleteFunc() function :
-function deleteBtn(taskNumber) {
-    let deleteTodo = findTodoNumber(taskNumber, filteredTodoSaves);
-
-    let deleteSave = filteredTodoSaves[deleteTodo];
-    filteredTodoSaves = [];
-    filteredTodoSaves.push(deleteSave);
-    deleteFunc();
-
-    document.getElementById(`todo-number${deleteTodo}`).style.opacity = 0;
-    setTimeout(() => {
-        updateHTML(false);
-    }, 250);
 }
 
 // Object constructor for new task :
@@ -358,121 +243,3 @@ for (let i = 0; i < 3; i++) {
         updateHTML(false);
     });
 }
-
-const uploadText = document.getElementById("upload-text");
-const uploadBtn = document.getElementById("upload-btn");
-const downloadText = document.getElementById("download-text");
-const downloadBtn = document.getElementById("download-btn");
-
-const fileInput = document.getElementById("fileInput");
-
-const uploadHandler = () => {
-    fileInput.value = null;
-    fileInput.click();
-
-    console.log("upload");
-};
-
-fileInput.addEventListener("change", function () {
-    const selectedFile = fileInput.files[0];
-    if (selectedFile) {
-        console.log("Selected file:", selectedFile.name);
-
-        const reader = new FileReader();
-
-        reader.onload = function (event) {
-            let fileContent = JSON.parse(event.target.result);
-            console.log("File content:", fileContent);
-
-            todoSaves = fileContent;
-
-            console.log("Import successful");
-            updateTodos();
-            updateHTML(false);
-        };
-
-        reader.readAsText(selectedFile);
-    }
-    fileInput.value = null;
-});
-
-const downloadHandler = () => {
-    console.log("download");
-
-    let content = JSON.stringify(todoSaves, null, 2);
-
-    // content = content.replace(/},{/g, "}\n{");
-    // content = content.replace("[{", "[\n{");
-    // content = content.replace("}]", "}\n]");
-    // content = content.replace(/{/g, "  {  ");
-    // content = content.replace(/}/g, "  }");
-    // content = content.replace(/,/g, "\t\t");
-
-    const blob = new Blob([content], { type: "text/plain" });
-    const url = URL.createObjectURL(blob);
-
-    console.log(url);
-
-    console.log(
-        "If you cannot download todos, consider turning off your ad blocker"
-    );
-
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "save-todos.txt";
-    a.textContent = "Download Array";
-
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-};
-
-setTimeout(() => {
-    if (!firebaseOnline) {
-        loadingPage.innerHTML = `
-        <h1>Cannot access Firebase servers</h1>
-        <br />
-        <p>Maybe turn on your VPN</p>`;
-
-        downloadText.removeEventListener("click", downloadHandler);
-        uploadText.removeEventListener("click", uploadHandler);
-    } else {
-        downloadText.addEventListener("click", downloadHandler);
-        uploadText.addEventListener("click", uploadHandler);
-
-        uploadText.addEventListener("mouseover", () => {
-            uploadBtn.style.opacity = "0";
-        });
-        uploadText.addEventListener("mouseleave", () => {
-            uploadBtn.style.opacity = "1";
-        });
-        uploadText.style.cursor = "pointer";
-
-        downloadText.addEventListener("mouseover", () => {
-            downloadBtn.style.opacity = "0";
-        });
-        downloadText.addEventListener("mouseleave", () => {
-            downloadBtn.style.opacity = "1";
-        });
-        downloadText.style.cursor = "pointer";
-
-        console.log("Download-Upload btns unlock");
-    }
-}, 3000);
-
-document.querySelector(".anonymous-session").addEventListener("click", () => {
-    window.location.href =
-        "http://localhost:3000/React-login-page/todoApp/goAnonymousMode";
-});
-
-console.log("update10");
-
-document.querySelector(".public-session").addEventListener("click", () => {
-    window.location.href =
-        "http://localhost:5000/17a%25C2%2586s%257Dzt1dv%25C2%2584%25C2%2584z%25C2%2580%257F";
-});
-
-document.querySelector(".private-session").addEventListener("click", () => {
-    window.location.href = "http://localhost:3000/React-login-page/todoApp";
-});
