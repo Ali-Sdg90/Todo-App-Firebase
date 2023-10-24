@@ -67,35 +67,30 @@ const downloadHandler = () => {
     URL.revokeObjectURL(url);
 };
 
+downloadText.addEventListener("click", downloadHandler);
+uploadText.addEventListener("click", uploadHandler);
+
+uploadText.addEventListener("mouseover", () => {
+    uploadBtn.style.opacity = "0";
+});
+uploadText.addEventListener("mouseleave", () => {
+    uploadBtn.style.opacity = "1";
+});
+uploadText.style.cursor = "pointer";
+
+downloadText.addEventListener("mouseover", () => {
+    downloadBtn.style.opacity = "0";
+});
+downloadText.addEventListener("mouseleave", () => {
+    downloadBtn.style.opacity = "1";
+});
+downloadText.style.cursor = "pointer";
+
 setTimeout(() => {
     if (!firebaseOnline) {
         loadingPage.innerHTML = `
         <h1>Cannot access Firebase servers</h1>
         <br />
         <p>Maybe turn on your VPN</p>`;
-
-        downloadText.removeEventListener("click", downloadHandler);
-        uploadText.removeEventListener("click", uploadHandler);
-    } else {
-        downloadText.addEventListener("click", downloadHandler);
-        uploadText.addEventListener("click", uploadHandler);
-
-        uploadText.addEventListener("mouseover", () => {
-            uploadBtn.style.opacity = "0";
-        });
-        uploadText.addEventListener("mouseleave", () => {
-            uploadBtn.style.opacity = "1";
-        });
-        uploadText.style.cursor = "pointer";
-
-        downloadText.addEventListener("mouseover", () => {
-            downloadBtn.style.opacity = "0";
-        });
-        downloadText.addEventListener("mouseleave", () => {
-            downloadBtn.style.opacity = "1";
-        });
-        downloadText.style.cursor = "pointer";
-
-        console.log("Download-Upload btns unlock");
     }
 }, 3000);
