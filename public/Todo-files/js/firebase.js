@@ -11,17 +11,17 @@ const anonymousSessionInput = document.getElementById(
 const emailLogoutAddress = document.querySelector(".email-logout-address");
 
 // ----Run-local---- //
-const localMode = true;
+const localMode = false;
 // ----------------- //
 
 let LoginBaseURL = "";
 let TodoBaseURL = "";
 
 if (localMode) {
-    LoginBaseURL = "http://localhost:3000/Todo-Login-Page/";
+    LoginBaseURL = "http://localhost:3000/Todo-Login-Page/#/";
     TodoBaseURL = "http://localhost:5000/";
 } else {
-    LoginBaseURL = "https://ali-sdg90.github.io/Todo-Login-Page/";
+    LoginBaseURL = "https://ali-sdg90.github.io/Todo-Login-Page/#/";
     TodoBaseURL = "https://ali-sdg9093-todo-app.web.app/";
 }
 
