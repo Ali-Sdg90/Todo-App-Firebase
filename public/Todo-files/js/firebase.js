@@ -10,13 +10,9 @@ const anonymousSessionInput = document.getElementById(
 
 const emailLogoutAddress = document.querySelector(".email-logout-address");
 
-const encryptedEmailAdrs = window.location.href.split("/").reverse()[0];
-const decryptedEmailAdrs = urlDecoder(encryptedEmailAdrs);
-
-console.log("Encrypted_URL:", encryptedEmailAdrs);
-console.log("Decrypted_URL:", decryptedEmailAdrs);
-
-const localMode = false;
+// ----Run-local---- //
+const localMode = true;
+// ----------------- //
 
 let LoginBaseURL = "";
 let TodoBaseURL = "";
@@ -29,7 +25,23 @@ if (localMode) {
     TodoBaseURL = "https://ali-sdg9093-todo-app.web.app/";
 }
 
+const encryptedEmailAdrs = window.location.href.split("/").reverse()[0];
+let decryptedEmailAdrs = "";
+
+try {
+    decryptedEmailAdrs = urlDecoder(encryptedEmailAdrs);
+} catch (error) {
+    window.location.href = `${LoginBaseURL}goAnonymousMode`;
+}
+
+console.log("Encrypted_URL:", encryptedEmailAdrs);
+console.log("Decrypted_URL:", decryptedEmailAdrs);
+
 emailLogoutAddress.setAttribute("href", LoginBaseURL);
+
+if (!encryptedEmailAdrs) {
+    window.location.href = `${LoginBaseURL}goAnonymousMode`;
+}
 
 // Update todos to Firebase server
 function updateTodos() {
@@ -38,6 +50,24 @@ function updateTodos() {
     const newData = todoSaves;
     myPost.update({ UserTodo: JSON.parse(JSON.stringify(newData)) });
 }
+
+// Add log to Todos collection
+const addToDataBase = () => {
+    const db = firebase.firestore();
+    const myPost = db.collection("Todos").doc("todos-data");
+    const newData = todoSaves;
+
+    const date = new Date();
+    const logTime = date.getTime();
+
+    const updateObj = {};
+    updateObj[logTime] = {
+        UserEmail: decryptedEmailAdrs,
+        UserTodo: JSON.parse(JSON.stringify(newData)),
+    };
+
+    myPost.update(updateObj);
+};
 
 // Get todos from Firebase server
 document.addEventListener("DOMContentLoaded", () => {
@@ -48,7 +78,11 @@ document.addEventListener("DOMContentLoaded", () => {
         firebaseOnline = true;
         const data = doc.data();
 
-        userInfo = data.UserInfo;
+        try {
+            userInfo = data.UserInfo;
+        } catch (error) {
+            window.location.href = `${LoginBaseURL}goAnonymousMode`;
+        }
 
         console.log("UserInfo:", userInfo);
         console.log("UserTodo:", data.UserTodo);

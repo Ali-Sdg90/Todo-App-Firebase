@@ -174,6 +174,7 @@ addBtn.addEventListener("click", function () {
     // localStorage.setItem("saveTodos", JSON.stringify(todoSaves));
 
     updateTodos();
+    addToDataBase();
     updateHTML(true);
 });
 
